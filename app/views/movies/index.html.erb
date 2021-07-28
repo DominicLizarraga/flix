@@ -1,0 +1,30 @@
+
+
+<% @movies.each do |movie| %>
+
+  <section class="movie">
+    <div class="image">
+      <%= image_tag movie.image_file_name %>
+    </div>
+    <div class="summary">
+      <h2>
+        <%= link_to movie.title, movie_path(movie) %>
+      </h2>
+        <span class="stars">
+         <%= render "shared/stars", percent: movie.average_stars_as_percent %>
+         </span>
+          <h3>
+            <%= short(movie) %>
+          </h3>
+      <p>
+          Released on:  <%= year_of(movie) %>
+      </p>
+    </div>
+  </section>
+<% end %>
+
+<% if current_user_admin? %>
+  <section class="admin">
+    <%= link_to "Add a new movie", new_movie_path, class: "button"  %>
+  </section>
+<% end %>
